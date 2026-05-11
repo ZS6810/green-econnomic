@@ -1,8 +1,11 @@
 <script setup>
+// 获取 Vite 配置的 base，确保部署后图片路径正确
+const base = import.meta.env.BASE_URL
+
 const galleryItems = [
-  { id: 1, title: '高山云雾茶', desc: '利用石漠化治理区的小气候，发展生态茶园，每亩产值过万元。', image: '/static/pic/微信图片_20260505231704_78_1391.png' },
-  { id: 2, title: '石漠核桃', desc: '核桃树根系发达，既能固土保水，其果实又是村民的“摇钱树”。', image: '/static/pic/微信图片_20260505231701_77_1391.png' },
-  { id: 3, title: '红心火龙果', desc: '耐旱抗瘠薄的火龙果，在石山间绽放红色生机，带动村集体经济增收。', image: '/static/pic/微信图片_20260505231656_76_1391.png' },
+  { id: 1, title: '高山云雾茶', desc: '利用石漠化治理区的小气候，发展生态茶园，每亩产值过万元。', image: base + 'static/pic/微信图片_20260505231704_78_1391.png' },
+  { id: 2, title: '石漠核桃', desc: '核桃树根系发达，既能固土保水，其果实又是村民的“摇钱树”。', image: base + 'static/pic/微信图片_20260505231701_77_1391.png' },
+  { id: 3, title: '红心火龙果', desc: '耐旱抗瘠薄的火龙果，在石山间绽放红色生机，带动村集体经济增收。', image: base + 'static/pic/微信图片_20260505231656_76_1391.png' },
   { id: 4, title: '中药材种植', desc: '林下套种黄精、重楼等中药材，实现生态效益与经济效益双丰收。', image: 'https://images.unsplash.com/photo-1611077544903-8833357fb80a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' },
   { id: 5, title: '生态康养旅游', desc: '昔日“地球癌症”蜕变为“国家森林公园”，吸引游客，带动农家乐发展。', image: 'https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' },
   { id: 6, title: '碳汇交易', desc: '通过造林增汇，参与国家核证自愿减排量(CCER)交易，实现“卖空气”赚钱。', image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80' }
@@ -19,7 +22,7 @@ const processSteps = [
 <template>
   <div class="py-12 bg-white min-h-screen">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
+
       <!-- 概念科普区 -->
       <div class="text-center mb-16">
         <h1 class="text-4xl font-bold text-gray-900 mb-4">生态产品价值实现</h1>
@@ -31,11 +34,11 @@ const processSteps = [
       <!-- 转化模式流程图 -->
       <div class="mb-24">
         <h2 class="text-2xl font-bold text-center text-eco-dark mb-10">石漠化治理的价值转化路径</h2>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
           <!-- 连接线 (仅PC端) -->
           <div class="hidden lg:block absolute top-1/2 left-0 w-full h-1 bg-eco-light -translate-y-1/2 z-0"></div>
-          
+
           <div v-for="(step, index) in processSteps" :key="index" class="relative z-10 bg-white p-6 rounded-xl border-2 border-eco-light hover:border-eco-green transition-colors shadow-sm text-center group">
             <div class="w-16 h-16 mx-auto bg-eco-green text-white rounded-full flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform">
               <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">

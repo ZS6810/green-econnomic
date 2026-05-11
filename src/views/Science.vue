@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 
+// 获取 Vite 配置的 base，确保图片路径在部署后也正确
+const base = import.meta.env.BASE_URL
+
 const tabs = ['定义与成因', '等级分类', '分布范围', '生态危害', '基础修复']
 const activeTab = ref(0)
 
@@ -22,7 +25,8 @@ const content = [
   {
     title: '我国石漠化分布情况',
     desc: '中国是世界上喀斯特地貌分布最广的国家之一。石漠化主要集中在西南地区，包括贵州、云南、广西、湖南、湖北、重庆、四川、广东等8个省（区、市）。其中，滇黔桂三省区交界处是石漠化最为严重的区域。',
-    image: '/static/pic/微信图片_20260505232817_80_1391.jpg'
+    // 动态拼接路径，vite 构建时会正确处理 base
+    image: base + 'static/pic/微信图片_20260505232817_80_1391.jpg'
   },
   {
     title: '石漠化的生态危害',
@@ -56,12 +60,12 @@ const content = [
 
       <!-- Tabs Navigation -->
       <div class="flex flex-wrap justify-center gap-2 mb-12 border-b border-gray-200 pb-4">
-        <button 
-          v-for="(tab, index) in tabs" 
-          :key="index"
-          @click="activeTab = index"
-          class="px-6 py-2 rounded-full text-sm font-medium transition-all duration-300"
-          :class="activeTab === index ? 'bg-eco-green text-white shadow-md' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
+        <button
+            v-for="(tab, index) in tabs"
+            :key="index"
+            @click="activeTab = index"
+            class="px-6 py-2 rounded-full text-sm font-medium transition-all duration-300"
+            :class="activeTab === index ? 'bg-eco-green text-white shadow-md' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
         >
           {{ tab }}
         </button>
@@ -69,12 +73,12 @@ const content = [
 
       <!-- Tab Content -->
       <div class="bg-eco-light/20 rounded-2xl p-8 md:p-12 shadow-sm border border-eco-light transition-all duration-500">
-        
+
         <!-- 定义与成因 -->
         <div v-show="activeTab === 0" class="animate-fade-in">
           <h2 class="text-2xl font-bold text-eco-dark mb-6">{{ content[0].title }}</h2>
           <p class="text-gray-700 text-lg leading-relaxed mb-8">{{ content[0].desc }}</p>
-          
+
           <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
             <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
               <svg class="w-6 h-6 text-earth-brown" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -95,9 +99,9 @@ const content = [
         <div v-show="activeTab === 1" class="animate-fade-in">
           <h2 class="text-2xl font-bold text-eco-dark mb-8">{{ content[1].title }}</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div v-for="(level, i) in content[1].levels" :key="i" 
+            <div v-for="(level, i) in content[1].levels" :key="i"
                  class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:border-eco-green/50 transition-colors">
-              <h3 class="text-lg font-bold text-gray-800 mb-2" 
+              <h3 class="text-lg font-bold text-gray-800 mb-2"
                   :class="{'text-yellow-600': i===0, 'text-orange-500': i===1, 'text-red-500': i===2, 'text-red-800': i===3}">
                 {{ level.name }}
               </h3>
@@ -111,7 +115,7 @@ const content = [
           <h2 class="text-2xl font-bold text-eco-dark mb-6">{{ content[2].title }}</h2>
           <p class="text-gray-700 text-lg leading-relaxed mb-8">{{ content[2].desc }}</p>
           <div class="rounded-xl overflow-hidden shadow-md">
-            <!-- 使用占位图代表地图分布 -->
+            <!-- 使用动态路径加载分布图 -->
             <img :src="content[2].image" alt="分布区域示意" class="w-full h-64 object-cover" />
             <div class="bg-gray-800 text-gray-300 text-xs p-2 text-center">图示：西南喀斯特地区地形风貌</div>
           </div>
@@ -121,7 +125,7 @@ const content = [
         <div v-show="activeTab === 3" class="animate-fade-in">
           <h2 class="text-2xl font-bold text-eco-dark mb-8">{{ content[3].title }}</h2>
           <div class="space-y-4">
-            <div v-for="(hazard, i) in content[3].hazards" :key="i" 
+            <div v-for="(hazard, i) in content[3].hazards" :key="i"
                  class="flex items-center gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
               <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0">
                 <svg class="w-6 h-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -138,7 +142,7 @@ const content = [
           <h2 class="text-2xl font-bold text-eco-dark mb-6">{{ content[4].title }}</h2>
           <p class="text-gray-700 text-lg leading-relaxed mb-8">{{ content[4].desc }}</p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div v-for="(method, i) in content[4].methods" :key="i" 
+            <div v-for="(method, i) in content[4].methods" :key="i"
                  class="bg-white p-6 rounded-xl border-l-4 border-eco-green shadow-sm">
               <h3 class="text-lg font-bold text-gray-800 mb-2">{{ method.name }}</h3>
               <p class="text-gray-600 text-sm leading-relaxed">{{ method.desc }}</p>

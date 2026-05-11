@@ -1,6 +1,9 @@
 <script setup>
 import { ref, computed } from 'vue'
 
+// 获取 Vite 配置的 base，确保部署后图片路径正确
+const base = import.meta.env.BASE_URL
+
 const categories = ['全部', '人物事迹', '乡村蝶变', '模式科普']
 const activeCategory = ref('全部')
 
@@ -11,7 +14,7 @@ const articles = [
     category: '人物事迹',
     date: '2026-04-12',
     summary: '在重庆市巫山县下庄村，村支书毛相林带领村民历时7年，在悬崖绝壁上凿出了一条长达8公里的“天路”，不仅打破了闭塞，更在贫瘠的石山上种出了致富的柑橘林。',
-    image: '/static/pic/微信图片_20260505231609_73_1391.jpg'
+    image: base + 'static/pic/微信图片_20260505231609_73_1391.jpg'
   },
   {
     id: 2,
@@ -19,7 +22,7 @@ const articles = [
     category: '乡村蝶变',
     date: '2026-04-05',
     summary: '贵州赫章县海雀村曾是极度贫困的代名词。经过30多年的植树造林，万亩荒山变林海。如今，村民不仅靠林下种天麻赚了钱，还吃上了“生态旅游饭”。',
-    image: '/static/pic/微信图片_20260505231604_71_1391.png'
+    image: base + 'static/pic/微信图片_20260505231604_71_1391.png'
   },
   {
     id: 3,
@@ -35,7 +38,7 @@ const articles = [
     category: '乡村蝶变',
     date: '2026-03-15',
     summary: '云南西畴县将乱石堆炸碎填土，硬生生造出台地。在这片曾被认为无法耕种的土地上，试种猕猴桃获得成功，结出了“生态果”和“致富果”。',
-    image: '/static/pic/微信图片_20260505231608_72_1391.png'
+    image: base + 'static/pic/微信图片_20260505231608_72_1391.png'
   },
   {
     id: 5,
@@ -68,12 +71,12 @@ const selectedArticle = ref(null)
 
       <!-- 分类筛选 -->
       <div class="flex flex-wrap justify-center gap-3 mb-12">
-        <button 
-          v-for="cat in categories" 
-          :key="cat"
-          @click="activeCategory = cat"
-          class="px-5 py-2 rounded-full text-sm font-medium transition-colors"
-          :class="activeCategory === cat ? 'bg-eco-green text-white shadow-md' : 'bg-white text-gray-600 border border-gray-200 hover:border-eco-green hover:text-eco-green'"
+        <button
+            v-for="cat in categories"
+            :key="cat"
+            @click="activeCategory = cat"
+            class="px-5 py-2 rounded-full text-sm font-medium transition-colors"
+            :class="activeCategory === cat ? 'bg-eco-green text-white shadow-md' : 'bg-white text-gray-600 border border-gray-200 hover:border-eco-green hover:text-eco-green'"
         >
           {{ cat }}
         </button>
@@ -81,11 +84,11 @@ const selectedArticle = ref(null)
 
       <!-- 文章列表 -->
       <div class="grid grid-cols-1 gap-8">
-        <div 
-          v-for="article in filteredArticles" 
-          :key="article.id"
-          @click="selectedArticle = article"
-          class="bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 overflow-hidden cursor-pointer group flex flex-col md:flex-row"
+        <div
+            v-for="article in filteredArticles"
+            :key="article.id"
+            @click="selectedArticle = article"
+            class="bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 overflow-hidden cursor-pointer group flex flex-col md:flex-row"
         >
           <div class="md:w-1/3 h-48 md:h-auto relative overflow-hidden">
             <img :src="article.image" :alt="article.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -122,25 +125,25 @@ const selectedArticle = ref(null)
     <div v-if="selectedArticle" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
       <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="selectedArticle = null"></div>
       <div class="relative bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl">
-        <button 
-          @click="selectedArticle = null"
-          class="absolute top-4 right-4 z-10 w-10 h-10 bg-black/20 hover:bg-black/40 text-white rounded-full flex items-center justify-center backdrop-blur-md transition-colors"
+        <button
+            @click="selectedArticle = null"
+            class="absolute top-4 right-4 z-10 w-10 h-10 bg-black/20 hover:bg-black/40 text-white rounded-full flex items-center justify-center backdrop-blur-md transition-colors"
         >
           <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
-        
+
         <img :src="selectedArticle.image" alt="Cover" class="w-full h-64 md:h-80 object-cover" />
-        
+
         <div class="p-8 md:p-12">
           <div class="flex items-center gap-3 mb-6">
             <span class="bg-eco-light text-eco-dark px-3 py-1 rounded-full text-sm font-medium">{{ selectedArticle.category }}</span>
             <span class="text-gray-500 text-sm">{{ selectedArticle.date }}</span>
           </div>
-          
+
           <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">{{ selectedArticle.title }}</h2>
-          
+
           <div class="prose prose-lg prose-green max-w-none text-gray-700">
             <p class="lead text-xl text-gray-600 mb-8 font-medium border-l-4 border-eco-green pl-4">
               {{ selectedArticle.summary }}
@@ -153,7 +156,7 @@ const selectedArticle = ref(null)
             </blockquote>
             <p>这句话不仅是一句口号，更是西南喀斯特地区人民抗击石漠化的真实写照。如今，绿水青山正逐步转化为金山银山，曾经的穷山恶水，正焕发出新的生机与活力。</p>
           </div>
-          
+
           <div class="mt-12 pt-8 border-t border-gray-100 flex justify-center">
             <button @click="selectedArticle = null" class="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full transition-colors">
               关闭文章
