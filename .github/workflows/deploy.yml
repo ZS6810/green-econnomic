@@ -21,7 +21,7 @@ jobs:
           node-version: 18   # 或 20，建议 18/20 都可以
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build
         run: npm run build
