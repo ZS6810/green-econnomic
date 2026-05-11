@@ -10,6 +10,7 @@ export default defineConfig({
     vue(),
     tailwindcss(),
   ],
+  base: '/green-econnomic/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
