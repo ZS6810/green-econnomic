@@ -1,14 +1,17 @@
 <script setup>
 import BeforeAfterSlider from '../components/ui/BeforeAfterSlider.vue'
 
+// 获取 Vite 配置的 base 路径，例如 '/' 或 '/仓库名/'
+const base = import.meta.env.BASE_URL
+
 const cases = [
   {
     id: 1,
     title: '云南西畴：“等不是办法，干才有希望”',
     subtitle: '从“基本失去人类生存条件”到“生态绿洲”的涅槃',
     desc: '西畴县曾是云南省石漠化最严重的地区之一，全县99.9%的面积属于山区，石漠化面积占75.4%。面对恶劣环境，西畴人民创造了“西畴精神”，炸石造地，植树造林。',
-    beforeImg: '/static/pic/微信图片_20260505231152_64_1391.png', // 荒芜山石示意
-    afterImg: '/static/pic/微信图片_20260505231154_65_1391.png',  // 绿水青山示意
+    beforeImg: base + 'static/pic/微信图片_20260505231152_64_1391.png',
+    afterImg: base + 'static/pic/微信图片_20260505231154_65_1391.png',
     achievements: [
       { year: '2000前', event: '乱砍滥伐，石漠化严重，吃水难、行路难。' },
       { year: '2010年', event: '全面启动石漠化综合治理工程，实施封山育林。' },
@@ -21,8 +24,8 @@ const cases = [
     title: '贵州海雀：荒山秃岭变“绿色银行”',
     subtitle: '赫章县海雀村的绿色奇迹',
     desc: '海雀村曾被联合国专家评定为“不具备人类生存条件的地方”。老支书文朝荣带领村民在光秃秃的石山上种下万亩林海，如今这里已成为国家级生态文明教育基地。',
-    beforeImg: '/static/pic/微信图片_20260505231113_61_1391.png',
-    afterImg: '/static/pic/微信图片_20260505231116_62_1391.png',
+    beforeImg: base + 'static/pic/微信图片_20260505231113_61_1391.png',
+    afterImg: base + 'static/pic/微信图片_20260505231116_62_1391.png',
     achievements: [
       { year: '1985年', event: '森林覆盖率仅为5%，水土流失严重，村民食不果腹。' },
       { year: '1995年', event: '完成万亩荒山造林，生态恶化趋势得到初步遏制。' },
@@ -56,13 +59,13 @@ const cases = [
               </svg>
               治理前后生态对比
             </h3>
-            
+
             <div class="mb-12 shadow-lg rounded-xl">
-              <BeforeAfterSlider 
-                :before-image="caseItem.beforeImg" 
-                :after-image="caseItem.afterImg" 
-                before-label="治理前 (石漠化)"
-                after-label="治理后 (绿水青山)"
+              <BeforeAfterSlider
+                  :before-image="caseItem.beforeImg"
+                  :after-image="caseItem.afterImg"
+                  before-label="治理前 (石漠化)"
+                  after-label="治理后 (绿水青山)"
               />
               <p class="text-sm text-center text-gray-500 mt-3 flex items-center justify-center gap-1">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -85,7 +88,7 @@ const cases = [
                 <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-white border-2 border-eco-green flex items-center justify-center">
                   <div class="w-1.5 h-1.5 rounded-full bg-eco-green" v-if="i === caseItem.achievements.length - 1"></div>
                 </div>
-                
+
                 <div class="bg-gray-50 rounded-lg p-4 border border-gray-100 hover:border-eco-green/30 hover:shadow-sm transition-all">
                   <span class="inline-block px-3 py-1 bg-eco-light text-eco-dark text-sm font-bold rounded-full mb-2">{{ achievement.year }}</span>
                   <p class="text-gray-700">{{ achievement.event }}</p>
