@@ -2,19 +2,23 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ master ]   # 当你推送到 main 分支时自动触发
+    branches: [ master ]   # 或 master，取决于你默认分支名
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # 提前启用 Node 24，避免警告
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 18   # 或 20，建议 18/20 都可以
 
       - name: Install dependencies
         run: npm ci
@@ -22,11 +26,9 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy
+      - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist   # 部署打包后的 dist 文件夹
-
-
-
+          publish_dir: ./dist
+          force_orphan: true   # 强制清理旧历史，避免冲突
