@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18   # 或 20，建议 18/20 都可以
+          node-version: 20   # 或 20，建议 18/20 都可以
 
       - name: Install dependencies
         run: npm install
